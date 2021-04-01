@@ -4,12 +4,18 @@ import { formatTweet, formatDate } from '../utils/helpers'
 import { TiArrowBackOutline } from 'react-icons/ti' 
 import { TiHeartOutline } from 'react-icons/ti' 
 import { TiHeartFullOutline } from 'react-icons/ti'
+import { handleToogleTweet } from '../actions/tweets'
 
-function Tweet ({ tweet }) {
+function Tweet ({ tweet, dispatch, authedUser }) {
 
   function handleLike (e) {
     e.preventDefault()
-    // todo: Handle Like Tweet
+    
+    dispatch(handleToogleTweet({
+      id: tweet.id,
+      hasLiked: tweet.hasLiked,
+      authedUser
+    }))
   }
 
   function toParent(e, id) {
