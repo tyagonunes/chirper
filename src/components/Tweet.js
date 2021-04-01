@@ -9,9 +9,9 @@ function Tweet ({ tweet }) {
 
   function handleLike (e) {
     e.preventDefault()
-
     // todo: Handle Like Tweet
   }
+
   function toParent(e, id) {
     e.preventDefault()
   }
@@ -21,7 +21,14 @@ function Tweet ({ tweet }) {
   }
 
   const {
-    name, avatar, timestamp, text, hasLiked, likes, replies, parent
+    name,
+    avatar,
+    timestamp,
+    text,
+    hasLiked,
+    likes,
+    replies,
+    parent
   } = tweet
 
   return (
