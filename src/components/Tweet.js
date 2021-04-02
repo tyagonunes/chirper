@@ -1,12 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { useHistory } from "react-router";
 import { formatTweet, formatDate } from '../utils/helpers'
 import { TiArrowBackOutline } from 'react-icons/ti' 
 import { TiHeartOutline } from 'react-icons/ti' 
 import { TiHeartFullOutline } from 'react-icons/ti'
 import { handleToogleTweet } from '../actions/tweets'
+import { Link, withRouter } from 'react-router-dom'
 
 function Tweet ({ tweet, dispatch, authedUser }) {
+  const history = useHistory();
 
   function handleLike (e) {
     e.preventDefault()
@@ -20,6 +23,7 @@ function Tweet ({ tweet, dispatch, authedUser }) {
 
   function toParent(e, id) {
     e.preventDefault()
+    history.push(`/tweet/${id}`)
   }
   
   if(tweet === null) {
@@ -34,11 +38,12 @@ function Tweet ({ tweet, dispatch, authedUser }) {
     hasLiked,
     likes,
     replies,
-    parent
+    parent,
+    id
   } = tweet
 
   return (
-    <div className="tweet">
+    <Link to={`/tweet/${id}`} className="tweet">
       <img
         src={avatar}
         alt={`Avatar of ${name}`}
@@ -69,7 +74,7 @@ function Tweet ({ tweet, dispatch, authedUser }) {
           <span>{likes !== 0 && likes}</span>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
@@ -83,4 +88,4 @@ function mapStateToProps( { authedUser, users, tweets }, { id } ) {
   }
 }
 
-export default connect(mapStateToProps)(Tweet)
+export default withRouter(connect(mapStateToProps)(Tweet))

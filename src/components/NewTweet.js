@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { handleAddTweet } from '../actions/tweets'
 
 function NewTweet({ id }) {
   const [text, setText] = useState('')
-  const [textLeft, setTextLeft] = useState(0)
+  const [textLeft, setTextLeft] = useState(280)
+  const [toHome, setToHome] = useState(false)
   const dispatch = useDispatch()
 
   const handleChange = (e) => {
@@ -15,8 +17,14 @@ function NewTweet({ id }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(handleAddTweet(text, id))
+    setToHome(id ? false : true)
     setText('')
   }
+
+  if(toHome === true) {
+    return <Redirect to='/' />
+  }
+
   return (
     <div>
       <h3 className="center">Compose new Tweet</h3>
