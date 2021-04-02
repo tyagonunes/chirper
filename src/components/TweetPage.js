@@ -4,7 +4,6 @@ import Tweet from './Tweet'
 import NewTweet from './NewTweet'
 
 function TweetPage({ id, replies }) {
-
   return (
     <div>
       <Tweet id={id} />
@@ -17,7 +16,6 @@ function TweetPage({ id, replies }) {
           </li>
         ))}
       </ul>
-
     </div>
   )
 }
