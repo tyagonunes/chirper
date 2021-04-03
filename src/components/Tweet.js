@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { useHistory } from "react-router";
-import { formatTweet, formatDate } from '../utils/helpers'
+import { formatDate } from '../utils/helpers'
 import { TiArrowBackOutline } from 'react-icons/ti' 
 import { TiHeartOutline } from 'react-icons/ti' 
 import { TiHeartFullOutline } from 'react-icons/ti'
 import { Link, withRouter } from 'react-router-dom'
 import { toogleTweet } from '../actions/tweets'
+import { getAuthedUser, getFormatedTweet } from '../selectors'
 
 function Tweet ({ tweet, dispatch, authedUser }) {
   const history = useHistory();
@@ -78,14 +79,9 @@ function Tweet ({ tweet, dispatch, authedUser }) {
   )
 }
 
-function mapStateToProps( { authedUser, users, tweets }, { id } ) {
-  const tweet = tweets[id]
-  const parentTweet = tweet ? tweets[tweet.replyingTo] : null
-
-  return {
-    authedUser,
-    tweet: tweet ? formatTweet(tweet, users[tweet.author], authedUser, parentTweet ) : null
-  }
-}
+const mapStateToProps = (state, { id }) => ({
+  authedUser: getAuthedUser,
+  tweet: getFormatedTweet(state, id)
+})
 
 export default withRouter(connect(mapStateToProps)(Tweet))

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Tweet from './Tweet'
 import NewTweet from './NewTweet'
+import { getReplies } from '../selectors'
 
 function TweetPage({ id, replies }) {
   return (
@@ -20,12 +21,12 @@ function TweetPage({ id, replies }) {
   )
 }
 
-function mapStateToProps({ authedUser, tweets, users}, props) {
+function mapStateToProps(state, props) {
   const { id } = props.match.params
 
   return {
     id,
-    replies: !tweets[id] ? [] : tweets[id].replies.sort((a,b) => tweets[b].timestamp - tweets[a].timestamp)
+    replies: getReplies(state, id)
   }
 }
 
