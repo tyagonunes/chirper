@@ -5,8 +5,8 @@ import { formatTweet, formatDate } from '../utils/helpers'
 import { TiArrowBackOutline } from 'react-icons/ti' 
 import { TiHeartOutline } from 'react-icons/ti' 
 import { TiHeartFullOutline } from 'react-icons/ti'
-import { handleToogleTweet } from '../actions/tweets'
 import { Link, withRouter } from 'react-router-dom'
+import { toogleTweet } from '../actions/tweets'
 
 function Tweet ({ tweet, dispatch, authedUser }) {
   const history = useHistory();
@@ -14,7 +14,7 @@ function Tweet ({ tweet, dispatch, authedUser }) {
   function handleLike (e) {
     e.preventDefault()
     
-    dispatch(handleToogleTweet({
+    dispatch(toogleTweet({
       id: tweet.id,
       hasLiked: tweet.hasLiked,
       authedUser
