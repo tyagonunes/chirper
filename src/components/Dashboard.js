@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
 import Tweet from './Tweet'
+import { getTweetIds } from '../selectors' 
 
 function Dashboard({ tweetIds }) {
   return (
@@ -17,10 +19,8 @@ function Dashboard({ tweetIds }) {
   );
 }
 
-function mapStateToProps( { tweets } ) {
-  return {
-    tweetIds: Object.keys(tweets).sort((a,b) => tweets[b].timestamp - tweets[a].timestamp)
-  }
-}
+const mapStateToProps = createStructuredSelector({
+  tweetIds: getTweetIds
+})
 
 export default connect(mapStateToProps)(Dashboard)
